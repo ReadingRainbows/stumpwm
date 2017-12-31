@@ -1,0 +1,42 @@
+(in-package :stumpwm)
+
+(set-module-dir
+	(pathname-as-directory (concat (getenv "HOME") "/stumpwm")))
+	
+(load-module "swm-gaps")
+
+(setf swm-gaps:*inner-gaps-size* 10
+      swm-gaps:*outer-gaps-size* 15)
+
+(setf *message-window-gravity* :center
+      *input-window-gravity* :center
+      *window-border-style* :thin
+      *message-window-padding* 10
+      *maxsize-border-width* 5
+      *normal-border-width* 5
+      *transient-border-width* 2
+      stumpwm::*float-window-border* 2
+      stumpwm::*float-window-title-height* 5
+      *mouse-focus-policy* :click)
+      
+(set-normal-gravity :center)
+(set-maxsize-gravity :center)
+(set-transient-gravity :center)
+
+(set-fg-color "#eeeeee")
+(set-bg-color "#1C2028")
+(set-border-color "#232731")
+(set-focus-color "#3B4252")
+(set-unfocus-color "#232731")
+(set-win-bg-color "#22272F")
+(set-float-focus-color "#3B4252")
+(set-float-unfocus-color "#232731")
+
+(setf *colors* (list "#1C2028"      ; 0 black
+                     "#BF616A"      ; 1 red
+                     "#A3BE8C"      ; 2 green
+                     "#EBCB8B"      ; 3 yellow
+                     "#5E81AC"      ; 4 blue
+                     "#B48EAD"      ; 5 magenta
+                     "#8FBCBB"      ; 6 cyan
+                     "#ECEFF4"))    ; 7 white
