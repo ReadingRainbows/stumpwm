@@ -2,4 +2,4 @@
 xrdb ~/.Xresources
 feh --bg-scale ~/Downloads/wallpaper.jpg
 compton & 
-exec ~/stumpwm/stumpwm/stumpwm 
+exec sbcl --load ~/stumpwm/startstump 

@@ -1,5 +1,11 @@
 (in-package :stumpwm)
 
+(require :swank)
+(swank-loader:init)
+(swank:create-server :port 4004
+		     :style swank:*communication-style*
+		     :dont-close t)
+
 (set-module-dir
 	(pathname-as-directory (concat (getenv "HOME") "/stumpwm")))
 	
@@ -40,3 +46,5 @@
                      "#B48EAD"      ; 5 magenta
                      "#8FBCBB"      ; 6 cyan
                      "#ECEFF4"))    ; 7 white
+
+
