@@ -30,3 +30,4 @@
 (require 'init-evil)
 (require 'init-slime)
 (require 'init-helm)
+(require 'init-latex)
