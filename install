@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cp -r . ../../test/
+
+if [ $EUID != 0 ]; then
+    sudo "$0" "$@"
+    exit $?
+fi
+
+dpkg --set-selections < ./package-installed.list
+apt-get -y update
+apt-get dselect-upgrade
