@@ -6,7 +6,5 @@
 ;;Add quicklisp to slime
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
-(add-hook 'lisp-mode-hook (lambda () (paredit-mode +1)))
-(add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
 (slime-setup '(slime-fancy))
 (provide 'init-slime)

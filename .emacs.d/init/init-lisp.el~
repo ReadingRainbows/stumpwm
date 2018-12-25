@@ -1,0 +1,31 @@
+(require 'lispy)
+(require 'lispyville)
+(add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+(add-hook 'lispy-mode-hook #'lispyville-mode)
+
+;; (defun conditionally-enable-lispy ()
+;;   (when (eq this-command 'eval-expression)
+;;     (lispy-mode 1)))
+
+;; (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
+
+(with-eval-after-load 'lispyville
+  (lispyville-set-key-theme
+   '(operators
+     c-w
+     (escape insert)
+     (additional-movement normal visual motion))))
+
+(when (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
+  (use-package slime
+    :init
+    (load (expand-file-name "~/quicklisp/slime-helper.el"))
+    :bind
+    (("C-c C-v C-v" . slime-vari-describe-symbol))
+    :config
+    (add-hook 'slime-load-hook            (lambda () (require 'slime-fancy)))
+    (add-hook 'lisp-mode-hook             'my-lisp-mode-hook)
+    (add-hook 'lisp-interaction-mode-hook 'my-lisp-mode-hook)
+    (add-hook 'slime-repl-mode-hook 'my-lisp-repl-hook)))
+
+(provide 'init-lisp)

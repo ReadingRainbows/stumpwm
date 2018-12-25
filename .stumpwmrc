@@ -1,15 +1,20 @@
 (in-package :stumpwm)
 
+
 (require :swank)
 (swank-loader:init)
-(swank:create-server :port 4004
-		     :style swank:*communication-style*
-		     :dont-close t)
+
+
+
+;;(swank:create-server :port 4004
+ 		     ;;:style swank:*communication-style*
+ 		     ;;:dont-close t)
 
 (set-module-dir
 	(pathname-as-directory (concat (getenv "HOME") "/stumpwm")))
 	
 (load-module "swm-gaps")
+(load-module "stumptray")
 
 (setf swm-gaps:*inner-gaps-size* 10
       swm-gaps:*outer-gaps-size* 15)
@@ -47,4 +52,64 @@
                      "#8FBCBB"      ; 6 cyan
                      "#ECEFF4"))    ; 7 white
 
+;;; Not working ;(
+;; (defmacro toggle-command (state-var t-command nil-command)
+;;   `(progn (if ,state-var
+;; 	      (run-shell-command ,t-command)
+;; 	      (run-shell-command ,nil-command))
+;;     (setf ,state-var (not ,state-var))))
 
+;; (defmacro deftoggle (function-sym t-command nil-command)
+;; 	  `(let (toggle-state)
+;; 	    (defun ,function-sym ()
+;; 		(toggle-command toggle-state ,t-command ,nil-command))))
+
+;; (deftoggle toggle-trayer "/usr/bin/trayer -SetDockType false --expand false" 
+;;   "killall trayer")
+
+;; (define-key *root-map* (kbd "C-t") "eval (stumpwm::toggle-trayer)")
+;; (defcommand printscreeroot() ()
+;; 	    (message "Print screen root window!")
+;; 	    (run-shell-command "import -window root /home/zinzon/screenshot.jpg"))
+
+(define-key *root-map* (kbd "SunPrint_Screen") (run-shell-command "import -window root /home/zinzon/screenshot.jpg"))
+
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 5%-")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 5%+")
+(define-key *root-map* (kbd "C-s") "eval (stumpwm::remove-split)")
+
+;; Lags for now, need a fix. In order to fix it, implementing a deftoggle and toggle-tray. 
+(run-shell-command
+	"/usr/bin/trayer --SetDockType false --transparent true --expand false")
+
+;;; Ran automatically at startup, hence not needed... Altough might be needed if we need to change the wifi!
+(run-shell-command "nm-applet --sm-disable")
+
+
+
+;;; Modeline!!!!!!
+(defvar *battery-status-command*
+  "acpi -b | awk -F '[ ,]' '{printf \"%s%s\", $3, $5}' | sed s/Discharging/\-/ | sed s/Unknown// | sed s/Full// | sed s/Charging/+/")
+
+(defvar *vol-status-command*
+  "amixer get Master | grep [[:digit:]]\\+%' -o | tr -d '\\n'")
+
+(setf *screen-mode-line-format*
+      (list "[^B%n^b] %W^>"
+      '(:eval (run-shell-command *battery-status-command* t))
+      " | Vol. "
+      '(:eval (run-shell-command *vol-status-command* t))
+      " | %d"))
+
+(setf *mode-line-border-color* "#4682B4")
+(setf *mode-line-backgorund-color* "#1E3A6F")
+(setf *mode-line-foreground-color* "#E1AD46")
+
+(setf *window-format* "%m%n%s%c")
+
+(setf *mode-line-timeout* 1)
+
+;; Turn on the new mode line.
+
+(toggle-mode-line (current-screen)
+   (current-head))

@@ -14,7 +14,7 @@
  '(global-hl-line-sticky-flag t)
  '(package-selected-packages
    (quote
-    (company auto-complete flycheck neotree treemacs-projectile xresources-theme lispyville zenburn-theme helm auctex slime evil ##))))
+    (neotree treemacs-projectile xresources-theme lispyville zenburn-theme helm auctex slime evil ##))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

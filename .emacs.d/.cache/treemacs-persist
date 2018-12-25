@@ -1,0 +1,3 @@
+([cl-struct-treemacs-workspace "Default Workspace"
+			       ([cl-struct-treemacs-project "Emacs-init" "/home/zinzon/.emacs.d"]
+				[cl-struct-treemacs-project "sturdy-octo-sniffle" "/home/zinzon/Documents/Lisp/sturdy-octo-sniffle"])])

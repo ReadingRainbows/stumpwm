@@ -1,5 +1,7 @@
 #!/bin/bash
+xset r rate 200 60
 xrdb ~/.Xresources
-feh --bg-scale ~/Downloads/wallpaper.jpg
-compton & 
+xset +fp /home/zinzon/.fonts/ &
+feh --bg-scale ~/Pictures/wallpaper.jpg
+#compton -bGC 
 exec sbcl --load ~/stumpwm/startstump 

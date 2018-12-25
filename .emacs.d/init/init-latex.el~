@@ -18,6 +18,6 @@
 	  (setq result (replace-regexp-in-string "[' ()]" ""
 					  (format "%s" (last (split-string tmp "=" t))))))))))
 
-(global-set-key (kbd "C-c C-o C-p") 'preview-pdf-makefile-other-window)
+
 
 (provide 'init-latex)
